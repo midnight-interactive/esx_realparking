@@ -56,17 +56,13 @@ ESX.RegisterServerCallback("esx_realparking:saveCar", function(source, cb, vehic
 						["@plate"]      = plate,
 						["@identifier"] = xPlayer.identifier
 					})
-					MySQL.Async.execute('UPDATE owned_vehicles SET vehicle = @vehicle WHERE owner = @owner AND plate = @plate', {
-									['@owner'] = xPlayer.identifier,
-									['@vehicle'] = json.encode(vehicleData.props),
-									['@plate'] =  plate
-								})
 					cb({
 						status  = true,
 						message = _U("car_saved"),
 					})
 					Wait(100)
 					TriggerClientEvent("esx_realparking:addVehicle", -1, {vehicle = vehicleData, plate = plate, fee = 0.0, owner = xPlayer.identifier, name = xPlayer.getName()})
+					TriggerEvent('persistent-vehicles/forget-vehicle', plate) -- Forget Vehicle TJ 9/9/20
 				end
 			end)
 		else
@@ -104,6 +100,7 @@ ESX.RegisterServerCallback("esx_realparking:driveCar", function(source, cb, vehi
 					end
 					if playerMoney >= fee then
 						xPlayer.removeMoney(fee)
+						TriggerEvent('persistent-vehicles/register-vehicle', plate)  -- Register Vehicle TJ 9/9/20
 						MySQL.Async.execute('DELETE FROM car_parking WHERE plate = @plate AND owner = @identifier', {
 							["@plate"]      = plate,
 							["@identifier"] = xPlayer.identifier
