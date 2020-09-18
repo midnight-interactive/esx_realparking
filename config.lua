@@ -4,7 +4,7 @@
 
 Config = {}
 
-Config.UsingOldESX = true      -- If you are using ESX 1.2.0 or higher please leave this to false
+Config.UsingOldESX = false      -- If you are using ESX 1.2.0 or higher please leave this to false
 
 Config.Locale = 'en' -- locale
 
@@ -52,5 +52,16 @@ Config.ParkingLocations = {
 		fee    = 700,          -- How much parking fee per day (Real life time), set false to disable
 		enter  = {x = 364.77, y = 298.98, z = 103.5},
 		maxcar = 15,
+	},
+	parking5 = {
+		x      = -568.16,      -- Central location X, Y, Z of the parking
+		y      = 327.67,
+		z      = 84.08,
+		size   = 20.0,         -- The parking range radius (Horizontal)
+		height = 10.0,         -- The parking range radius (Vertical)
+		name   = "Free Parking", -- The name of the parking (blips)
+		fee    = 0,          -- How much parking fee per day (Real life time), set false to disable
+		enter  = {x = -543.85, y = 327.02, z = 274.62},
+		maxcar = 20,
 	},
 }
